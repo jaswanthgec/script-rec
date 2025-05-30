@@ -1,7 +1,7 @@
 import React from 'react';
-import type { MedicineDetails } from '@/types';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import type { MedicineDetails } from '../types';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Button } from './ui/button';
 import { Pill, Droplets, Edit3, HelpCircle, Eye, Ear, Wind, Layers, Pipette, BotMessageSquare } from 'lucide-react';
 
 interface MedicineCardProps {

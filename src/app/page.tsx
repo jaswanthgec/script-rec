@@ -1,16 +1,16 @@
 'use client';
 
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import type { ScreenView, PrescriptionData } from '@/types';
-import { extractPrescriptionDetails, ExtractPrescriptionDetailsInput } from '@/ai/flows/extract-prescription-details';
+import type { ScreenView, PrescriptionData } from '../types';
+import { extractPrescriptionDetails, ExtractPrescriptionDetailsInput } from '../ai/flows/extract-prescription-details';
 
-import UploadScreen from '@/components/screens/upload-screen';
-import ImagePreviewScreen from '@/components/screens/image-preview-screen';
-import ProcessingScreen from '@/components/screens/processing-screen';
-import ResultsScreen from '@/components/screens/results-screen';
-import ErrorScreen from '@/components/screens/error-screen';
-import CameraCaptureScreen from '@/components/screens/camera-capture-screen'; // New import
-import { useToast } from "@/hooks/use-toast";
+import UploadScreen from '../components/screens/upload-screen';
+import ImagePreviewScreen from '../components/screens/image-preview-screen';
+import ProcessingScreen from '../components/screens/processing-screen';
+import ResultsScreen from '../components/screens/results-screen';
+import ErrorScreen from '../components/screens/error-screen';
+import CameraCaptureScreen from '../components/screens/camera-capture-screen'; // New import
+import { useToast } from "../hooks/use-toast";
 import { v4 as uuidv4 } from 'uuid';
 
 export default function HomePage() {

@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import type { PrescriptionData, MedicineDetails } from '@/types';
-import MedicineCard from '@/components/medicine-card';
-import EditMedicineDialog from '@/components/edit-medicine-dialog';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
+import type { PrescriptionData, MedicineDetails } from '../../types';
+import MedicineCard from '../medicine-card';
+import EditMedicineDialog from '../edit-medicine-dialog';
+import { Button } from '../ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '../ui/card';
+import { ScrollArea } from '../ui/scroll-area';
+import { Separator } from '../ui/separator';
 import { AlertCircle, CheckCircle, Copy, Share2, FileScan, Maximize } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "../../hooks/use-toast";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from '../ui/dialog';
 
 interface ResultsScreenProps {
   prescriptionData: PrescriptionData;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import type { MedicineDetails } from '@/types';
-import { Button } from '@/components/ui/button';
+import type { MedicineDetails } from '../types';
+import { Button } from './ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,10 +8,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea'; // Assuming Textarea is available or created
+} from './ui/dialog';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { Textarea } from './ui/textarea'; // Assuming Textarea is available or created
 
 interface EditMedicineDialogProps {
   isOpen: boolean;

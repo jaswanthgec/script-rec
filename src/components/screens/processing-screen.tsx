@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
-import AppLogo from '@/components/app-logo';
+import AppLogo from '../app-logo';
 
 const ProcessingScreen: React.FC = () => {
   const messages = [

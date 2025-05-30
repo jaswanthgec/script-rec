@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '../ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Camera, Ban, Loader2, XCircle } from 'lucide-react';
-import type { useToast } from "@/hooks/use-toast";
+import type { useToast } from "../../hooks/use-toast";
 
 
 interface CameraCaptureScreenProps {

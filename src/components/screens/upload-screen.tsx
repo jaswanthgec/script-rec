@@ -1,6 +1,6 @@
 import React from 'react';
-import AppLogo from '@/components/app-logo';
-import { Button } from '@/components/ui/button';
+import AppLogo from '../app-logo';
+import { Button } from '../ui/button';
 import { UploadCloud, Camera } from 'lucide-react';
 
 interface UploadScreenProps {
@@ -35,7 +35,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onFileUpload, fileInputRef,
         <Button 
           onClick={onOpenCamera}
           size="lg" 
-          className="w-full text-lg py-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/30"
+          className="w-full text-lg py-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out bg-accent hover:bg-accent/90 text-accent-foreground transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accent/30"
           aria-label="Capture with Camera"
         >
           <Camera size={28} className="mr-3" />
@@ -45,8 +45,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onFileUpload, fileInputRef,
         <Button 
           onClick={triggerFileSelect} 
           size="lg" 
-          variant="outline"
-          className="w-full text-lg py-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out border-primary text-primary hover:bg-primary/10 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/30"
+          className="w-full text-lg py-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out bg-primary hover:bg-primary/90 text-primary-foreground transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/30"
           aria-label="Upload Image from Gallery"
         >
           <UploadCloud size={28} className="mr-3" />
