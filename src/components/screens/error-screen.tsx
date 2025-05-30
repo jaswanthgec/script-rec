@@ -23,9 +23,9 @@ const ErrorScreen: React.FC<ErrorScreenProps> = ({ errorMessage, onTryAgainWithN
           {errorMessage}
         </p>
         
-        <div className="p-4 bg-muted/50 rounded-lg border border-dashed border-input">
-          <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center">
-            <Info size={16} className="mr-2 text-primary" />
+        <div className="p-4 bg-accent/10 rounded-lg border border-accent/50 shadow-sm">
+          <h4 className="text-sm font-semibold text-accent-foreground mb-2 flex items-center">
+            <Info size={16} className="mr-2 text-accent" />
             Tips for a Better Scan:
           </h4>
           <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">

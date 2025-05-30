@@ -88,9 +88,6 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
     try {
       if (navigator.share) {
         await navigator.share(shareData);
-        // Successfully shared, no toast needed as browser UI handles it.
-        // If you want a success toast:
-        // toast({ title: "Content shared successfully!", variant: "default" });
         return; 
       } else {
         // Web Share API not supported
@@ -109,7 +106,6 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
     } catch (err: any) {
       console.error('Share failed:', err);
       
-      // Attempt to copy to clipboard as a fallback
       try {
         await navigator.clipboard.writeText(formatPrescriptionText());
         copySuccessful = true;
@@ -117,19 +113,19 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
         console.error("Copy to clipboard failed during share fallback:", copyError);
       }
 
-      if (err.name === 'AbortError') { // User cancelled the share dialog
+      if (err.name === 'AbortError') { 
         toastTitle = "Share Cancelled";
         toastDescription = copySuccessful 
           ? "Sharing was cancelled. Content has been copied to your clipboard." 
           : "Sharing was cancelled, and failed to copy content to clipboard.";
         toastVariant = "default";
-      } else if (err.name === 'NotAllowedError') { // Permission denied for share
+      } else if (err.name === 'NotAllowedError') { 
         toastTitle = "Share Permission Denied";
         toastDescription = copySuccessful 
           ? "Could not share due to permission issues (e.g., not on HTTPS). Content copied to clipboard." 
           : "Could not share due to permissions, and also failed to copy content to clipboard.";
-        toastVariant = "destructive"; // Keep destructive for permission issues
-      } else { // Other share errors
+        toastVariant = copySuccessful ? "default" : "destructive"; 
+      } else { 
         toastTitle = "Share Error";
         toastDescription = copySuccessful 
           ? `An error occurred: ${err.message || 'Unknown error'}. Content copied to clipboard.`
@@ -138,7 +134,6 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
       }
     }
     
-    // Show toast only if share wasn't successful or API not supported
     if (toastTitle) {
       toast({ title: toastTitle, description: toastDescription, variant: toastVariant });
     }
@@ -169,7 +164,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          <ScrollArea className="h-[calc(100vh-26rem)] md:h-[calc(80vh-16rem)] lg:h-[500px]"> {/* Adjust height as needed */}
+          <ScrollArea className="h-[calc(100vh-26rem)] md:h-[calc(80vh-16rem)] lg:h-[500px]">
             <div className="p-6">
               {prescriptionData.medicines.length > 0 ? (
                 prescriptionData.medicines.map(medicine => (
@@ -185,12 +180,14 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
               {(prescriptionData.doctorName || prescriptionData.clinicInformation || prescriptionData.dateOfPrescription || prescriptionData.patientName) && (
                 <>
                   <Separator className="my-6" />
-                  <h3 className="text-lg font-semibold text-foreground mb-3">Other Information</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                    {prescriptionData.doctorName && (<div><strong>Doctor:</strong> <span className="text-muted-foreground">{prescriptionData.doctorName}</span></div>)}
-                    {prescriptionData.clinicInformation && (<div><strong>Clinic:</strong> <span className="text-muted-foreground">{prescriptionData.clinicInformation}</span></div>)}
-                    {prescriptionData.dateOfPrescription && (<div><strong>Date:</strong> <span className="text-muted-foreground">{prescriptionData.dateOfPrescription}</span></div>)}
-                    {prescriptionData.patientName && (<div><strong>Patient:</strong> <span className="text-muted-foreground">{prescriptionData.patientName}</span></div>)}
+                  <div className="mt-4 p-4 rounded-lg bg-muted/30 border border-border/70 shadow-sm">
+                    <h3 className="text-lg font-semibold text-foreground mb-4">Other Information</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                      {prescriptionData.doctorName && (<div className="space-y-1"><strong>Doctor:</strong> <p className="text-muted-foreground">{prescriptionData.doctorName}</p></div>)}
+                      {prescriptionData.clinicInformation && (<div className="space-y-1"><strong>Clinic:</strong> <p className="text-muted-foreground">{prescriptionData.clinicInformation}</p></div>)}
+                      {prescriptionData.dateOfPrescription && (<div className="space-y-1"><strong>Date:</strong> <p className="text-muted-foreground">{prescriptionData.dateOfPrescription}</p></div>)}
+                      {prescriptionData.patientName && (<div className="space-y-1"><strong>Patient:</strong> <p className="text-muted-foreground">{prescriptionData.patientName}</p></div>)}
+                    </div>
                   </div>
                 </>
               )}
@@ -223,4 +220,3 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
 };
 
 export default ResultsScreen;
-
