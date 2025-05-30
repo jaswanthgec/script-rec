@@ -113,7 +113,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
                   <DialogTitle>Original Prescription Image</DialogTitle>
                 </DialogHeader>
                 <div className="relative w-full aspect-[3/4] max-h-[75vh] overflow-hidden rounded-md">
-                    <Image src={originalImage} alt="Original Prescription" layout="fill" objectFit="contain" data-ai-hint="medical prescription" />
+                    <Image src={originalImage} alt="Original Prescription" fill style={{ objectFit: 'contain' }} data-ai-hint="medical prescription" />
                 </div>
               </DialogContent>
             </Dialog>

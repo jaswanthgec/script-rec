@@ -21,8 +21,8 @@ const ImagePreviewScreen: React.FC<ImagePreviewScreenProps> = ({ imageDataUri, o
           <Image 
             src={imageDataUri} 
             alt="Uploaded Prescription" 
-            layout="fill" 
-            objectFit="contain" 
+            fill
+            style={{ objectFit: 'contain' }}
             data-ai-hint="medical prescription"
           />
         </div>
