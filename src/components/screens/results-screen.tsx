@@ -68,7 +68,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
   const handleCopyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(formatPrescriptionText());
-      toast({ title: "Copied to clipboard!", icon: <CheckCircle className="h-5 w-5 text-green-500" /> });
+      toast({ title: "Copied to clipboard!"});
     } catch (err) {
       toast({ title: "Failed to copy", description: "Could not copy text to clipboard.", variant: "destructive" });
     }
@@ -76,22 +76,71 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
   
   const handleShare = async () => {
     const shareData = {
-      title: 'Prescription Insights',
+      title: 'ScriptAssist Prescription Insights',
       text: formatPrescriptionText(),
     };
+
+    let toastTitle = "";
+    let toastDescription = "";
+    let toastVariant: "default" | "destructive" = "default";
+    let copySuccessful = false;
+
     try {
       if (navigator.share) {
         await navigator.share(shareData);
+        // Successfully shared, no toast needed as browser UI handles it.
+        // If you want a success toast:
+        // toast({ title: "Content shared successfully!", variant: "default" });
+        return; 
       } else {
-        // Fallback for browsers that don't support navigator.share
-        handleCopyToClipboard();
-        toast({ title: "Share not supported", description: "Content copied to clipboard instead." });
+        // Web Share API not supported
+        try {
+          await navigator.clipboard.writeText(formatPrescriptionText());
+          copySuccessful = true;
+        } catch (copyError) {
+          console.error("Copy to clipboard failed (share not supported):", copyError);
+        }
+        toastTitle = "Share Not Supported";
+        toastDescription = copySuccessful 
+          ? "Web Share is not available in your browser. Content copied to clipboard instead." 
+          : "Web Share is not available, and failed to copy content to clipboard.";
+        toastVariant = copySuccessful ? "default" : "destructive";
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Share failed:', err);
-      // If share fails (e.g. user cancels), copy to clipboard as a fallback
-      handleCopyToClipboard();
-      toast({ title: "Share cancelled or failed", description: "Content copied to clipboard instead.", variant: "destructive" });
+      
+      // Attempt to copy to clipboard as a fallback
+      try {
+        await navigator.clipboard.writeText(formatPrescriptionText());
+        copySuccessful = true;
+      } catch (copyError) {
+        console.error("Copy to clipboard failed during share fallback:", copyError);
+      }
+
+      if (err.name === 'AbortError') { // User cancelled the share dialog
+        toastTitle = "Share Cancelled";
+        toastDescription = copySuccessful 
+          ? "Sharing was cancelled. Content has been copied to your clipboard." 
+          : "Sharing was cancelled, and failed to copy content to clipboard.";
+        toastVariant = "default";
+      } else if (err.name === 'NotAllowedError') { // Permission denied for share
+        toastTitle = "Share Permission Denied";
+        toastDescription = copySuccessful 
+          ? "Could not share due to permission issues (e.g., not on HTTPS). Content copied to clipboard." 
+          : "Could not share due to permissions, and also failed to copy content to clipboard.";
+        toastVariant = "destructive"; // Keep destructive for permission issues
+      } else { // Other share errors
+        toastTitle = "Share Error";
+        toastDescription = copySuccessful 
+          ? `An error occurred: ${err.message || 'Unknown error'}. Content copied to clipboard.`
+          : `An error occurred: ${err.message || 'Unknown error'}, and failed to copy content to clipboard.`;
+        toastVariant = "destructive";
+      }
+    }
+    
+    // Show toast only if share wasn't successful or API not supported
+    if (toastTitle) {
+      toast({ title: toastTitle, description: toastDescription, variant: toastVariant });
     }
   };
 
@@ -174,3 +223,4 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ prescriptionData, origina
 };
 
 export default ResultsScreen;
+
